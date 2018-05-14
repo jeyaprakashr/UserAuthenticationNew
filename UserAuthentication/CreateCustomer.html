@@ -1,0 +1,179 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <link href="Content/bootstrap.min.css" rel="stylesheet" />
+    <title></title>
+</head>
+<body>
+    <h4><center> Customer Registration</center></h4>
+    <div class="col-md-10 col-md-offset-1">
+        <div class="well">
+            <!--Table to capture username and password-->
+            
+            <table class="table table-bordered">
+                <tbody>
+                    
+                    <tr>
+                        <td>CustomerCode</td>
+                        <td>
+                            <input type="text" id="txtCustomercode" placeholder="CustomerCode" />
+                        </td>
+                        <td>CustomerName</td>
+                        <td>
+                            <input type="text" id="txtCustomername"
+                                   placeholder="Customername" />
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>CompanyName</td>
+                        <td>
+                            <input type="text" id="txtCompanyname"
+                                   placeholder="Companyname" />
+                        </td>
+                        <td>Address1</td>
+                        <td>
+                            <input type="text" id="txtAddress1"
+                                   placeholder="Address1" />
+                        </td>
+
+                    </tr>
+                    <tr>
+                        <td>Address2</td>
+                        <td>
+                            <input type="text" id="txtAddress2"
+                                   placeholder="Address2" />
+                        </td>
+                        <td>City</td>
+                        <td>
+                            <input type="text" id="txtCity"
+                                   placeholder="City" />
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>State</td>
+                        <td>
+                            <input type="text" id="txtState"
+                                   placeholder="State" />
+                        </td>
+                        <td>Country</td>
+                        <td>
+                            <input type="text" id="txtCountry"
+                                   placeholder="Country" />
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>ZipCode</td>
+                        <td>
+                            <input type="text" id="txtZipcode"
+                                   placeholder="ZipCode" />
+                        </td>
+                        <td>Phone</td>
+                        <td>
+                            <input type="text" id="txtPhone"
+                                   placeholder="Phone" />
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td>Fax</td>
+                        <td>
+                            <input type="text" id="txtFax"
+                                   placeholder="Fax" />
+                        </td>
+                        <td>Email</td>
+                        <td>
+                            <input type="text" id="txtEMail"
+                                   placeholder="EMail" />
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td>InActive</td>
+                        <td>
+                            <input type="text" id="txtInActive"
+                                   placeholder="InActive" />
+                        </td>
+                        <td>CreatedDate</td>
+                        <td>
+                            <input type="text" id="txtCreatedDate"
+                                   placeholder="CreatedDate" />
+                        </td>
+                    </tr>
+
+                    <tr class="success">
+                        <td colspan="2">
+                            <input id="btnCreate" class="btn btn-success" type="button"
+                                   value="Create" />
+                            <input id="btnClose" class="btn btn-danger" type="button"
+                                   value="Close" />
+                        </td>
+                    </tr>
+                    <tr class="success">
+                    </tr>
+
+                </tbody>
+            </table>
+            <!--Bootstrap alert to display error message if the login fails-->
+            <div id="divError" class="alert alert-danger collapse">
+                <a id="linkClose" href="#" class="close">&times;</a>
+                <div id="divErrorText"></div>
+            </div>
+        </div>
+    </div>
+
+    <script src="Scripts/jquery-1.10.2.min.js"></script>
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('#linkClose').click(function () {
+                $('#divError').hide('fade');
+            });
+            $('#btnCreate').click(function () {
+                debugger;
+                var Customer = {
+                    CustomerCode: $('#txtCustomerCode').val(),
+                    CompanyCode: $("#txtCompanyCode").val(),
+                    CompanyName: $("#txtCompanyName").val(),
+                    Address1: $("#txtAddress1").val(),
+                    Address2: $("#txtAddress2").val(),
+                    City: $("#txtCity").val(),
+                    StateCode: $("#txtStateCode").val(),
+                    CountryCode: $("#txtCountryCode").val(),
+                    ZipCode: $("#txtZipCode").val(),
+                    Phone: $("#txtPhone").val(),
+                    Fax: $("#txtFax").val(),
+                    Email: $("#txtEmail").val(),
+                    InActive: $("#txtInActive").val(),
+                    CreatedDate: $("#txtCreatedDate").val()
+                };
+
+                debugger;
+                $.ajax({
+                    type: "POST",
+                    url: "/Customer/AddCustomer",
+                    data: JSON.stringify(Customer),
+                    dataType: "json",
+                    contentType: 'application/json; charset=utf-8',
+                    success: function (response) {
+                        debugger;
+                        window.location.href = "Data.html";
+                    },
+
+                    // Display errors if any in the Bootstrap alert <div>
+                    error: function (jqXHR) {
+                        $('#divErrorText').text(jqXHR.responseText);
+                        $('#divError').show('fade');
+                    }
+                });
+            });
+        });
+            
+    </script>
+
+
+
+
+
+</body>
+</html>
